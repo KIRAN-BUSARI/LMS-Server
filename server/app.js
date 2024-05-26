@@ -331,15 +331,15 @@ import fs from "fs/promises"; // Using fs promises API
 import { Server as SocketServer } from 'socket.io';
 import path from "path";
 import chokidar from "chokidar";
-import pty from "node-pty";
+// import pty from "node-pty";
 import cors from "cors";
-const ptyProcess = pty.spawn('bash', [], {
-    name: 'xterm-color',
-    cols: 80,
-    rows: 30,
-    cwd: process.env.INIT_CWD + '/user',
-    env: process.env
-});
+// const ptyProcess = pty.spawn('bash', [], {
+//     name: 'xterm-color',
+//     cols: 80,
+//     rows: 30,
+//     cwd: process.env.INIT_CWD + '/user',
+//     env: process.env
+// });
 
 const app = express();
 const server = http.createServer(app);
@@ -356,9 +356,9 @@ chokidar.watch('./user').on('all', (event, path) => {
     io.emit('file:refresh', path);
 });
 
-ptyProcess.onData(data => {
-    io.emit('terminal:data', data);
-});
+// ptyProcess.onData(data => {
+//     io.emit('terminal:data', data);
+// });
 
 io.on('connection', (socket) => {
     console.log(`Socket connected`, socket.id);
